@@ -8,15 +8,12 @@
  */
 class Database
 {
-   private $host = DB_HOST;
-   private $user = DB_USER;
-   private $pass = DB_PASS;
-   private $dbname = DB_NAME;
+   private $host = DB_HOST, $user = DB_USER, $pass = DB_PASS, $dbname = DB_NAME;
+   private $dbh, $stmt, $error;
 
-   private $dbh;
-   private $stmt;
-   private $error;
-
+   /**
+    * Constructor
+    */
    public function __construct()
    {
       // Set DSN (DATABASE STRING NAME)
@@ -35,12 +32,23 @@ class Database
       }
    }
 
+   /**
+    * Query the database
+    *
+    * @param string $sql
+    */
    public function query($sql)
    {
       $this->stmt = $this->dbh->prepare($sql);
    }
 
-   // Bind Values
+   /**
+    * Bind values to the prepared statement
+    *
+    * @param string $param
+    * @param mixed $value
+    * @param int $type
+    */
    public function bind($param, $value, $type = null)
    {
       if (is_null($type)) {
@@ -60,26 +68,46 @@ class Database
       }
       $this->stmt->bindValue($param, $value, $type);
    }
-   // Execute the prepared statement
+
+   /**
+    * Execute the prepared statement
+    *
+    * @return bool
+    */
    public function execute()
    {
       return $this->stmt->execute();
    }
 
-   // Get result set as array of object
-   public function resultSet() {
+   /**
+    * Get result set as array of object
+    *
+    * @return array
+    */
+   public function resultSet()
+   {
       $this->execute();
       return $this->stmt->fetchAll(PDO::FETCH_OBJ);
    }
 
-    // Get single set as object
-    public function singleSet() {
+   /**
+    * Get single set as object
+    *
+    * @return object
+    */
+   public function singleSet()
+   {
       $this->execute();
       return $this->stmt->fetch(PDO::FETCH_OBJ);
    }
 
-   // Get row count
-   public function rowCount() {
+   /**
+    * Get row count
+    *
+    * @return int
+    */
+   public function rowCount()
+   {
       return $this->stmt->rowCount();
    }
 }
