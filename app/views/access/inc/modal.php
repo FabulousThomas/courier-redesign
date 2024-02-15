@@ -171,9 +171,17 @@
                   </div>
                </div>
 
-               <div class="form-group mb-0 mb-lg-2">
-                  <label for="">Package Image</label>
-                  <input type="file" name="image" accept="image/*" value="" class="form-control shadow-none" required>
+               <div class="form-group mb-0 mb-lg-2 row align-items-center">
+                  <div class="col-md-6 mb-3 mb-lg-0">
+                     <label for="">Package Image</label>
+                     <input type="file" name="image" accept="image/*" value="" class="form-control shadow-none" required>
+                  </div>
+
+                  <div class="col-md-6 mb-3 mb-lg-0">
+                     <label>Send Email to Customer(Check Box)
+                        <input class="form-check-input shadow-none form-control p-3" type="checkbox" name="chk_send_mail">
+                     </label>
+                  </div>
                </div>
 
                <div class="modal-footer py-2">
@@ -361,6 +369,12 @@
                      <label for="">Location(Destination)</label>
                      <input type="text" name="d_location" id="d_location" value="" class="form-control shadow-none" required>
                   </div>
+               </div>
+
+               <div class="form-group mb-0 mb-lg-2">
+                  <label>Send Email to Customer(Check Box)
+                     <input class="form-check-input shadow-none form-control p-3" type="checkbox" name="chk_send_mail">
+                  </label>
                </div>
 
                <div class="modal-footer py-2">
