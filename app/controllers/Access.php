@@ -230,7 +230,9 @@ class Access extends Controller
 
          if ($stmt->execute()) {
             flashmsg('message', 'Package added successfully!');
-            $this->sendMail($rand_tid, $this->formData['p_status'], $this->formData['d_location'], $this->formData['ship_cost'] + $this->formData['h_charges'], $this->formData['order_date']);
+            if (isset($this->formData['chk_send_mail'])) {
+               $this->sendMail($rand_tid, $this->formData['p_status'], $this->formData['d_location'], $this->formData['ship_cost'] + $this->formData['h_charges'], $this->formData['order_date']);
+            }
          } else {
             flashmsg('message', "Something went wrong");
          }
@@ -250,7 +252,9 @@ class Access extends Controller
 
          if ($stmt->execute()) {
             flashmsg('message', 'Package updated successfully!');
-            $this->sendMail($this->formData['t_id'], $this->formData['p_status'], $this->formData['d_location'], $this->formData['ship_cost'] + $this->formData['h_charges'], $this->formData['order_date']);
+            if (isset($this->formData['chk_send_mail'])) {
+               $this->sendMail($this->formData['t_id'], $this->formData['p_status'], $this->formData['d_location'], $this->formData['ship_cost'] + $this->formData['h_charges'], $this->formData['order_date']);
+            }
          } else {
             flashmsg('message', "Something went wrong");
          }
@@ -318,7 +322,7 @@ class Access extends Controller
          </div>
       </div>
    </div>";
-   
+
       $headers = "MIME-Version: 1.0" . "\r\n";
       $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
 
