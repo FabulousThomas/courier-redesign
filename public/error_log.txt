@@ -1,2 +1,0 @@
-[2024-Feb-15 09:02am] Error: [2] mail(): &quot;sendmail_from&quot; not set in php.ini or custom &quot;From:&quot; header missing ->> C:\xampp\htdocs\courier-redesign\app\controllers\Access.php on line 329
---------------------------------------------------------------------------------------------------------

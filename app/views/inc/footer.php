@@ -29,7 +29,7 @@
          </div>
          <div class="col-lg-4 col-md-6 mb-4">
             <div class="footer-logo mb-3">
-               <a href="<?= URLROOT ?>"><img src="<?= URLROOT ?>/assets/img/logo/logo.png" width="100px" alt="LOGO"></a>
+               <a href="<?= URLROOT ?>"><img src="<?= URLROOT ?>/assets/img/logo/globallink_logo.png" width="120px" height="55px" alt="LOGO"></a>
             </div>
             <div class="footer-tittle">
                <div class="footer-pera">
@@ -97,7 +97,7 @@
 <!-- <div id="google_translate_element">
 </div> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
    function googleTranslateElementInit() {
       new google.translate.TranslateElement({
          pageLanguage: 'en'
@@ -105,7 +105,19 @@
    }
 </script>
 
-<script src="<?= URLROOT ?>/assets/js/element.js"></script>
+<div id="google_translate_element"></div> -->
+<!-- <script>
+   function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+            pageLanguage: 'en'
+         },
+         'google_translate_element'
+      );
+   }
+</script>
+<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> -->
+
+<!-- <script src="<?= URLROOT ?>/assets/js/element.js"></script> -->
 
 <!-- <small style="font-size: .8rem;">You can translate the content of this page by selecting a language in the select box.</small> -->
 

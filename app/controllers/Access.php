@@ -169,6 +169,7 @@ class Access extends Controller
    private function changePassword()
    {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+         
          $this->formData = filteration($_POST);
 
          if (isset($this->formData['btn_change_password'])) {

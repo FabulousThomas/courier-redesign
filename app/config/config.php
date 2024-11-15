@@ -10,7 +10,7 @@ define('APPROOT', dirname(dirname(__FILE__)));
 // Url Root
 define('URLROOT', 'http://localhost/courier-redesign');
 // Site Name
-define('SITENAME', 'JETKLIN LOGISTICS');
+define('SITENAME', 'GLOBALLINK LOGISTICS');
 define('EMAIL', 'jetklin-logistics@mail.com');
 define('WEBSITE', 'jetklinlogistics.com');
 define('PHONE', '+15645246902');

@@ -13,7 +13,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/style.css" />
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?= URLROOT ?>/assets/img/logo/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= URLROOT ?>/assets/img/logo/globallink_logo.png">
     <title><?= SITENAME; ?></title>
 </head>
 
