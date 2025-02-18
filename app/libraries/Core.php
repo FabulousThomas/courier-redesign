@@ -6,8 +6,8 @@
  */
 class Core
 {
-   private $currentController = 'index';
-   private $currentMethod = 'index';
+   private $currentController = 'Index';
+   private $currentMethod = 'Index';
    private $params = [];
 
    public function __construct()
