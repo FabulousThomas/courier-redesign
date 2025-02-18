@@ -135,15 +135,7 @@
 
                   <div class="col-md-6 mb-3 mb-lg-0">
                      <label for="">No. of Pieces</label>
-                     <select class="form-select" name="p_pieces" required>
-                        <option selected disabled>Choose Pieces</option>
-                        <option value="1 Truck Box">1 Truck Box</option>
-                        <option value="2 Truck Box">2 Truck Box</option>
-                        <option value="3 Truck Box">3 Truck Box</option>
-                        <option value="4 Truck Box">4 Truck Box</option>
-                        <option value="5 Truck Box">5 Truck Box</option>
-                        <option value="6 Truck Box">6 Truck Box</option>
-                     </select>
+                     <input type="text" name="p_pieces" class="form-control shadow-none">
                   </div>
                </div>
 
@@ -335,15 +327,7 @@
 
                   <div class="col-md-6 mb-3 mb-lg-0">
                      <label for="">No. of Pieces</label>
-                     <select class="form-select" name="p_pieces" id="p_pieces" required>
-                        <option selected disabled>Choose Pieces</option>
-                        <option value="1 Truck Box">1 Truck Box</option>
-                        <option value="2 Truck Box">2 Truck Box</option>
-                        <option value="3 Truck Box">3 Truck Box</option>
-                        <option value="4 Truck Box">4 Truck Box</option>
-                        <option value="5 Truck Box">5 Truck Box</option>
-                        <option value="6 Truck Box">6 Truck Box</option>
-                     </select>
+                     <input type="text" name="p_pieces" id="p_pieces" class="form-control shadow-none">
                   </div>
                </div>
 
