@@ -41,7 +41,7 @@ class Page
    }
 
    // === SELECT ALL FROM TABLE WHERE
-   function selectAllWhere($table, $col, $param)
+   public function selectAllWhere($table, $col, $param)
    {
       global $conn;
       return $conn->query("SELECT * FROM $table WHERE $col = '$param' LIMIT 1");
