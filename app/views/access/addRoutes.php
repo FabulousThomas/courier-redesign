@@ -30,8 +30,13 @@ require APPROOT . '/views/access/inc/sidebar.php';
                                  <option value="On Transit">On Transit</option>
                               </select>
                            </div>
+                           <div class="col-md-12 col-lg-6 mt-2 d-flex align-items-center">
+                              <label>Send Email(Check Box)
+                                 <input class="form-check-input shadow-none form-contro p-3" type="checkbox" name="chk_send_mail">
+                              </label>
+                           </div>
                            <div class="col-md-12 col-lg-6 mt-2">
-                              <button type="submit" class="btn btn-secondary" name="btn_add_routes">Add Routing</button>
+                              <button type="submit" class="btn btn-secondary" name="btn_add_routes">Add Routes</button>
                            </div>
                         </div>
                      </form>
