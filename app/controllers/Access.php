@@ -1,7 +1,7 @@
 <?php
 class Access extends Controller
 {
-   private $accessModel, $pageModel, $data = [], $formData, $imagePath = './uploads/';
+   private $accessModel, $pageModel, $data = [], $formData, $imagePath = './uploads/', $s_email;
    public function __construct()
    {
       $this->pageModel = $this->model("Page");
@@ -69,28 +69,37 @@ class Access extends Controller
          redirect('access/login');
       }
 
+      if ($id && !$this->accessModel->getId('p_id', $id) == $id) {
+         redirect('access/routes');
+      }
+
       global $conn;
       $frData = filteration($_POST);
+
+      $this->data = [
+         'id' => $id,
+         'getAll' => $this->pageModel->select_Where('products', 'p_id', $id),
+      ];
+
+      foreach ($this->data['getAll'] as $row) {
+         $t_id = $row->t_id;
+         $this->s_email = $row->s_email;
+      }
+
       if (isset($frData['btn_add_routes'])) {
 
          $update = $conn->query("UPDATE `products` SET `transit`='$frData[transit]', `r_status`='$frData[r_status]' 
                       WHERE `p_id`='$id'");
 
          if ($update) {
-            flashmsg('message', 'Package updated');
+            flashmsg('message', 'Package Route updated successfully!');
+            if (isset($frData['chk_send_mail'])) {
+               $this->sendMail($t_id, $frData['r_status'], $frData['transit'], date('Y-m-d'));
+            }
          } else {
             flashmsg('message', 'Package could not be updated', 'alert alert-danger');
          }
       }
-
-      if ($id && !$this->accessModel->getId('p_id', $id) == $id) {
-         redirect('access/routes');
-      }
-
-      $this->data = [
-         'id' => $id,
-         'getAll' => $this->pageModel->select_Where('products', 'p_id', $id),
-      ];
 
       $this->view('access/addRoutes', $this->data);
    }
@@ -169,7 +178,7 @@ class Access extends Controller
    private function changePassword()
    {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-         
+
          $this->formData = filteration($_POST);
 
          if (isset($this->formData['btn_change_password'])) {
@@ -290,23 +299,57 @@ class Access extends Controller
    }
 
    // SEND MESSAGE TO E-MAIL
-   public function sendMail($t_id, $status, $location, $cost, $date)
+   public function sendMail($t_id = NULL, $status = NULL, $location = NULL, $date = NULL, $cost = NULL)
    {
-      $_email = htmlentities($_REQUEST['s_email']);
 
       $subject = SITENAME . ', CONGRATS';
-      $body = "<div class='container'>
+      $headers = "MIME-Version: 1.0" . "\r\n";
+      $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
+
+      if (isset($_POST['btn_add_package']) || isset($_POST['btn_update_package'])) {
+         $_email = htmlentities($_REQUEST['s_email']);
+         $_remail = htmlentities($_REQUEST['r_email']);
+
+         $body = "<div class='container'>
+         <div class='row justify-content-center mx-auto'>
+            <div class='col-md-10 card border-0'>
+               <div class='card-body shadow'>
+                  <h4 class='text-uppercase text-center py-4'>Congrats, Your Package is being Shipped</h4>
+                  <p class='mb-0'>Tracking Number: $t_id</p>
+                  <p class='mb-0'>Current Status: $status</p>
+                  <p class='mb-0'>Location: $location</p>
+                  <p class='mb-0'>Shipment Cost: $$cost</p>
+                  <p class='mb-4'>Date: $date</p>
+                  <small>
+                     ----------------------------------------------------------
+                     <br>
+                     Terms and Conditions
+                     <br>
+                     I/We agree that the " . SITENAME . " Company standard terms apply to this shipment and limit " . SITENAME . " Company liability.
+                     The Warsaw convention may also apply.
+                     <br>
+                     Privacy Policy
+                     <br>
+                     We will not divulge your personal details to any other parties and will treat all your personal information as full confidential.
+                     <br><br>
+                     Management.<br> <img src='" . URLROOT . "/admin-assets/img/logo/signature.png' alt='' width='200px'>
+                  </small>
+               </div>
+            </div>
+         </div>
+      </div>";
+
+         $r_body = "<div class='container'>
       <div class='row justify-content-center mx-auto'>
          <div class='col-md-10 card border-0'>
             <div class='card-body shadow'>
-               <h4 class='text-uppercase text-center py-4'>Congratulations your shipment is booked</h4>
+               <h4 class='text-uppercase text-center py-4'>Congrats, Your Package is being Shipped</h4>
                <p class='mb-0'>Tracking Number: $t_id</p>
                <p class='mb-0'>Current Status: $status</p>
                <p class='mb-0'>Location: $location</p>
-               <p class='mb-0'>Shipment Cost: $$cost</p>
                <p class='mb-4'>Date: $date</p>
                <small>
-                  -------------------------------------------------------------------------------------
+                  ----------------------------------------------------------
                   <br>
                   Terms and Conditions
                   <br>
@@ -324,10 +367,41 @@ class Access extends Controller
       </div>
    </div>";
 
-      $headers = "MIME-Version: 1.0" . "\r\n";
-      $headers .= "Content-Type:text/html;charset=UTF-8" . "\r\n";
+         mail($_email, $subject, $body, $headers);
+         // mail($_remail, $subject, $r_body, $headers);
+      }
 
-      mail($_email, $subject, $body, $headers);
+
+      if (isset($_POST['btn_add_routes'])) {
+         $route_body = "<div class='container'>
+   <div class='row justify-content-center mx-auto'>
+      <div class='col-md-10 card border-0'>
+         <div class='card-body shadow'>
+            <h4 class='text-uppercase text-center py-4'>Congrats, Your Package is being Shipped</h4>
+            <p class='mb-0'>Tracking Number: $t_id</p>
+            <p class='mb-0'>Your shipment is $status in $location</p>
+            <p class='mb-4'>Date: $date</p>
+            <small>
+               ----------------------------------------------------------
+               <br>
+               Terms and Conditions
+               <br>
+               I/We agree that the " . SITENAME . " Company standard terms apply to this shipment and limit " . SITENAME . " Company liability.
+               The Warsaw convention may also apply.
+               <br>
+               Privacy Policy
+               <br>
+               We will not divulge your personal details to any other parties and will treat all your personal information as full confidential.
+               <br><br>
+               Management.<br> <img src='" . URLROOT . "/admin-assets/img/logo/signature.png' alt='' width='200px'>
+            </small>
+         </div>
+      </div>
+   </div>
+</div>";
+
+         mail($this->s_email, $subject, $route_body, $headers);
+      }
    }
 
    private function updateData($table, $set_columns, $set_values, $where_column, $where_value)
